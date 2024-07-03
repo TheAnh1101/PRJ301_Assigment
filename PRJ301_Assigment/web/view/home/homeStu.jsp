@@ -1,6 +1,6 @@
 <%-- 
-    Document   : login
-    Created on : Jun 23, 2024, 1:18:54 AM
+    Document   : homeStu
+    Created on : Jul 2, 2024, 10:05:40 PM
     Author     : AD
 --%>
 
@@ -12,9 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1> LOGIN FOR STUDENT </h1>
-        Username: <input type ="text" name="username"/><br>
-        Password: <input type="password" name="password"/><br>
-        <input type="Submit" value="Login"/>
+        <h1>Helloooooo</h1>
     </body>
 </html>

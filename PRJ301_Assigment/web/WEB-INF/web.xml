@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+    <servlet>
+        <servlet-name>LoginLecturerController</servlet-name>
+        <servlet-class>controller.auth.LoginLecturerController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginStudentController</servlet-name>
+        <servlet-class>controller.auth.LoginStudentController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginLecturerController</servlet-name>
+        <url-pattern>/lecturer/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginStudentController</servlet-name>
+        <url-pattern>/student/login</url-pattern>
+    </servlet-mapping>
+</web-app>
