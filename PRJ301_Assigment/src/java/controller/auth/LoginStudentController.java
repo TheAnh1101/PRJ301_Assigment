@@ -53,7 +53,8 @@ public class LoginStudentController extends HttpServlet {
 
         if (user != null) {
             request.getSession().setAttribute("user", user);
-            request.getRequestDispatcher("../view/home/homeStu.jsp").forward(request, response);
+            //            request.getRequestDispatcher("../view/home/homeStu.jsp").forward(request, response);
+            response.sendRedirect("../home/feature");
         } else {
             String error = "Login failed! Please try again";
             request.setAttribute("error", error);

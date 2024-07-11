@@ -16,20 +16,28 @@
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>controller.auth.LogoutController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListFeatureController</servlet-name>
+        <servlet-class>controller.home.ListFeatureController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginLecturerController</servlet-name>
-        <url-pattern>/lecturer/login</url-pattern>
+        <url-pattern>/login/lecturer</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginStudentController</servlet-name>
-        <url-pattern>/student/login</url-pattern>
+        <url-pattern>/login/student</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
+    <!--    <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/homepage</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListFeatureController</servlet-name>
+        <url-pattern>/home/feature</url-pattern>
     </servlet-mapping>
 </web-app>

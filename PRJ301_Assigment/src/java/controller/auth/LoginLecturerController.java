@@ -52,8 +52,8 @@ public class LoginLecturerController extends HttpServlet {
         User user = db.getUserByUsernamePasswordLecturer(username, password);
         if (user != null) {
             request.getSession().setAttribute("user", user);
-            request.getRequestDispatcher("../view/home/homeLec.jsp").forward(request, response);
-            response.sendRedirect("");
+//            request.getRequestDispatcher("../view/home/homeLec.jsp").forward(request, response);
+            response.sendRedirect("../home/feature");
         } else {
             String error = "Login failed! Please try again";
             request.setAttribute("error", error);

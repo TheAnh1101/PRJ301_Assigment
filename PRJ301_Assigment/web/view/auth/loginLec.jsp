@@ -12,7 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form action="login" method="POST">
+        <form action="lecturer" method="POST">
             <h1>LOGIN FOR LECTURER</h1>
             Username: <input type="text" name="username"/><br> 
             Password: <input type="text" name="password"/><br>
