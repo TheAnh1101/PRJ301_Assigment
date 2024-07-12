@@ -11,18 +11,26 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Home Page</title>
     </head>
     <body>
         <jsp:include page="../common/homePage.jsp"></jsp:include>
             <br> 
-            FAP FPTU
             <table border = 1px>
-
             <c:if test="${sessionScope.user.lecturer ne null && sessionScope.user.student eq null}">
-                <a href="${pageContext.request.contextPath}/exam/lecturer">View Course</a>
-                
+                FAP FPTU For Lecturer
+                <br>
+                <a href="${pageContext.request.contextPath}/exam/lecturer">View Course</a><br>
+                <a href="#">Blog</a>
             </c:if>
+            <c:if test="${sessionScope.user.student ne null}" >
+                FAP FPTU For Student
+                <a href="${pageContext.request.contextPath}/exam/lecturer">View List Course</a>
+                <a href="${pageContext.request.contextPath}/exam/lecturer">View Score</a>
+                <a href="${pageContext.request.contextPath}/exam/lecturer">Blog</a>
+                
+            </c:if>    
+                
         </table>
 
     </body>

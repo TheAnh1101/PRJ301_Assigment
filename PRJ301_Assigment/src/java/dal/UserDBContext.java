@@ -33,7 +33,7 @@ public class UserDBContext extends DBContext<User> {
             if (rs.next()) {
                 user = new User();
                 user.setId(rs.getInt("uid"));
-                user.setDisplayname(rs.getNString("displayname"));
+                user.setDisplayname(rs.getString("displayname"));
                 int lid = rs.getInt("lid");
                 if (lid != 0) {
                     Lecturer lecturer = new Lecturer();
