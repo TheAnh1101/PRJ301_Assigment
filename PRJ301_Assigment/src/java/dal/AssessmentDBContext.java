@@ -26,7 +26,7 @@ public class AssessmentDBContext extends DBContext<Assessment> {
             String sql = "SELECT a.aid,a.aname,a.weight,sub.subid,sub.subname\n"
                     + "	,e.eid,e.[from],e.duration\n"
                     + "FROM\n"
-                    + "exams e INNER JOIN assesments a ON e.aid = a.aid\n"
+                    + "exams e INNER JOIN assessments a ON e.aid = a.aid\n"
                     + "		INNER JOIN subjects sub ON sub.subid = a.subid\n"
                     + "		INNER JOIN courses c ON c.subid = sub.subid\n"
                     + "WHERE c.cid = ?";

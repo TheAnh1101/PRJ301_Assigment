@@ -13,14 +13,15 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="../common/homePage.jsp"></jsp:include>
         <form action="take" method="POST">
             <table border="1px">
                 <tr>
                     <th></th>
                     <c:forEach items="${requestScope.exams}" var="e">
                         <th>
-                            ${e.assessment.name}
-                            ${e.date} - ${e.assessment.weight}
+                            <span style="color:red;">${e.assessment.name}</span>|
+                            ${e.date} - ${e.assessment.weight}%
                         </th>
                     </c:forEach>
                 </tr>

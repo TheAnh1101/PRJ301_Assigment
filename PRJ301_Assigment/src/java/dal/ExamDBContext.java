@@ -24,7 +24,7 @@ public class ExamDBContext extends DBContext<Exam> {
     public ArrayList<Exam> getExamsByEids(int[] eids) {
         ArrayList<Exam> exams = new ArrayList<>();
         String sql = """
-                     SELECT e.eid,e.[from],e.duration,a.aid,a.aname,a.weight FROM exams e INNER JOIN assesments a ON a.aid = e.aid
+                     SELECT e.eid,e.[from],e.duration,a.aid,a.aname,a.weight FROM exams e INNER JOIN assessments a ON a.aid = e.aid
                      WHERE (1 > 2) """;
         for (int eid : eids) {
             sql+= " OR eid = ? ";
