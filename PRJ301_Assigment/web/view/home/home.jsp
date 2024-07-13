@@ -23,14 +23,13 @@
                 <a href="${pageContext.request.contextPath}/exam/lecturer">View Course</a><br>
                 <a href="#">Blog</a>
             </c:if>
-            <c:if test="${sessionScope.user.student ne null}" >
+            <c:if test="${sessionScope.user.student ne null && sessionScope.user.lecturer eq null}" >
                 FAP FPTU For Student
-                <a href="${pageContext.request.contextPath}/exam/lecturer">View List Course</a>
-                <a href="${pageContext.request.contextPath}/exam/lecturer">View Score</a>
-                <a href="${pageContext.request.contextPath}/exam/lecturer">Blog</a>
+                <a href="#">View List Course</a>
+                <a href="#">View Score</a>
+                <a href="#">Blog</a>
                 
             </c:if>    
-                
         </table>
 
     </body>

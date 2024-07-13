@@ -24,15 +24,14 @@
                 <a href="${pageContext.request.contextPath}/home/feature">homepage</a>
             </c:if>
             <c:if test="${sessionScope.user eq null}">
-                <a href="${pageContext.request.contextPath}/login">login</a> 
+                <a href="${pageContext.request.contextPath}/view/home/homePage.jsp">login</a> 
             </c:if>
 
             <br/>
-            <a href="${pageContext.request.contextPath}/view/detail">View Information</a>
+            <a href="${pageContext.request.contextPath}/view/profile">View Information</a>
             <br/>
             <a href="${pageContext.request.contextPath}/changepass">Change Password</a>
             <br/>
-            <a href="${pageContext.request.contextPath}/feedback/send">send a feedback</a>
         </td>
     </tr>
 </table>
