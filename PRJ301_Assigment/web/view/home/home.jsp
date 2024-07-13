@@ -20,14 +20,17 @@
             <c:if test="${sessionScope.user.lecturer ne null && sessionScope.user.student eq null}">
                 FAP FPTU For Lecturer
                 <br>
+                <input type="hidden" name="lid" value="${sessionScope.user.lecturer.id}"/>
                 <a href="${pageContext.request.contextPath}/exam/lecturer">View Course</a><br>
+                <a href="${pageContext.request.contextPath}/view/profile">Profile</a><br>
                 <a href="#">Blog</a>
             </c:if>
             <c:if test="${sessionScope.user.student ne null && sessionScope.user.lecturer eq null}" >
                 FAP FPTU For Student
-                <a href="#">View List Course</a>
-                <a href="#">View Score</a>
-                <a href="#">Blog</a>
+                <br>
+                <a href="#">View List Course</a><br>
+                <a href="#">View Score</a><br> 
+                <a href="#">Blog</a><br>
                 
             </c:if>    
         </table>

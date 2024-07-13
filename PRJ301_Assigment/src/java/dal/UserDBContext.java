@@ -73,7 +73,7 @@ public class UserDBContext extends DBContext<User> {
             if (rs.next()) {
                 user = new User();
                 user.setId(rs.getInt("uid"));
-                user.setDisplayname(rs.getNString("displayname"));
+                user.setDisplayname(rs.getString("displayname"));
                 int sid = rs.getInt("sid");
                 if (sid != 0) {
                     Student student = new Student();
@@ -105,7 +105,40 @@ public class UserDBContext extends DBContext<User> {
 
     @Override
     public User get(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        PreparedStatement stm = null;
+        User user = null;
+        try {
+            String sql = "SELECT u.uid,u.username,u.displayname,l.lid,l.lname,l.email,l.dob,l.gender FROM [User] u \n"
+                    + "INNER JOIN user_lecturer ul ON u.uid = ul.uid\n"
+                    + "INNER JOIN lecturer l ON l.lid = ul.lid \n"
+                    + "WHERE l.lid = ?";
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                user.setId(rs.getInt("uid"));
+                user.setUsername(rs.getString("username"));
+                user.setDisplayname(rs.getString("displayname"));
+                
+                Lecturer lec = new Lecturer();
+                lec.setId(rs.getInt("lid"));
+                lec.setName(rs.getString("lname"));
+                lec.setEmail(rs.getString("email"));
+                lec.setDob(rs.getDate("dob"));
+                lec.setGender(rs.getBoolean("gender"));
+                user.setLecturer(lec);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                stm.close();
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return user;
     }
 
     @Override
