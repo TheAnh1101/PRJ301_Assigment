@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import model.Course;
 import model.Exam;
+import model.User;
 
 /**
  *
@@ -35,7 +36,8 @@ public class LecturerViewExamController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         CourseDBContext db = new CourseDBContext();
-        int lid = Integer.parseInt(request.getParameter("lid"));
+        User user = (User) request.getSession().getAttribute("user");
+        int lid = user.getLecturer().getId();
         ArrayList<Course> courses = db.filterByLecturerID(lid);
         request.setAttribute("courses", courses);
         request.getRequestDispatcher("../view/exam/lecturer.jsp").forward(request, response);
