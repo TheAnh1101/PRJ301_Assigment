@@ -5,12 +5,14 @@
 
 package controller.profile;
 
+import dal.UserDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.User;
 
 /**
  *
@@ -27,6 +29,14 @@ public class ViewProfileLecController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        int lid = Integer.parseInt(request.getParameter("lid"));
+        UserDBContext db = new UserDBContext();
+        
+        User user = db.get(lid);
+        if (user!=null) {
+            request.setAttribute("user", user);
+            request.getRequestDispatcher("../view/profile/profile.jsp").forward(request, response);
+        }
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
