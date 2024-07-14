@@ -12,7 +12,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">  
-    <title>Links website</title>
+    <title>HOME</title>
     <style>
 
       body {
@@ -154,18 +154,18 @@
       <!-- Image and name container -->
       <div class="w3-margin-top" style="text-align: center">
         <div class="image w3-round"></div>
-        <p class="profession"><span class="w3-padding w3-margin" style="font-weight: bolder; color: #fdf5e6">DEV<span style="color: #ffcc66">BOOM</span></span></p>
-        <p class="bio"><span class="w3-padding w3-margin" style="font-weight: bolder; color: #fdf5e6">SOFTWARE DEVELOPMENT COMPANY</span></p><br>
+        <p class="profession"><span class="w3-padding w3-margin" style="font-weight: bolder; color: #fdf5e6">FAP<span style="color: #ffcc66">FPT</span></span></p>
+        <p class="bio"><span class="w3-padding w3-margin" style="font-weight: bolder; color: #fdf5e6">FPT University Academic Portal</span></p><br>
       </div>
 
       <!-- Links section 1 -->
       <div class="links-container">
-        <a href="../auth/loginLec.jsp" class="w3-button w3-sand w3-hover-pale-green link border" target="_blank">Login For Lecturer</a>
-        <a href="#" class="w3-button w3-sand w3-hover-pale-green link border" target="_blank">Login For Student</a>
+        <a href="${pageContext.request.contextPath}/login/lecturer" class="w3-button w3-sand w3-hover-pale-green link border">Login For Lecturer</a>
+        <a href="${pageContext.request.contextPath}/login/student" class="w3-button w3-sand w3-hover-pale-green link border">Login For Student</a>
       </div>
       
       <!-- Links section 2 -->
-      <div class="icons w3-padding">
+<!--      <div class="icons w3-padding">
         <a href="#" target="_blank">
           <i data-feather="facebook"></i>
         </a>
@@ -178,7 +178,7 @@
         <a href="#" target="_blank">
           <i data-feather="github"></i>
         </a>
-      </div><br>
+      </div><br>-->
       
         <div class="contact">
           <p class=""><span class="w3-padding w3-margin" style="font-weight: bolder; color: #fdf5e6">CONTACT US</span></p>
