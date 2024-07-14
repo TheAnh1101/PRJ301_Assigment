@@ -24,7 +24,7 @@
                 <a href="${pageContext.request.contextPath}/home/feature">homepage</a>
             </c:if>
             <c:if test="${sessionScope.user eq null}">
-                <a href="${pageContext.request.contextPath}/view/home/homePage.jsp">login</a> 
+                <a href="${pageContext.request.contextPath}/login">Login</a> 
             </c:if>
 
             <br/>
