@@ -98,13 +98,45 @@ public class UserDBContext extends DBContext<User> {
         return user;
     }
 
-    @Override
-    public ArrayList<User> all() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public User getInforStudent(int id) {
+        PreparedStatement stm = null;
+        User user = null;
+        try {
+            String sql = "SELECT u.uid,u.username,u.displayname,s.sid,s.sname,s.email,s.dob,s.gender FROM [User] u \n"
+                    + "INNER JOIN user_students us ON u.uid = us.uid\n"
+                    + "INNER JOIN students s ON s.sid = us.sid \n"
+                    + "WHERE s.sid = ?";
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                user = new User();
+                user.setId(rs.getInt("uid"));
+                user.setUsername(rs.getString("username"));
+                user.setDisplayname(rs.getString("displayname"));
+
+                Student stu = new Student();
+                stu.setId(rs.getInt("sid"));
+                stu.setName(rs.getString("sname"));
+                stu.setEmail(rs.getString("email"));
+                stu.setDob(rs.getDate("dob"));
+                stu.setGender(rs.getBoolean("gender"));
+                user.setStudent(stu);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                stm.close();
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return user;
     }
 
-    @Override
-    public User get(int id) {
+    public User getInforLecturer(int id) {
         PreparedStatement stm = null;
         User user = null;
         try {
@@ -116,10 +148,11 @@ public class UserDBContext extends DBContext<User> {
             stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
+                user = new User();
                 user.setId(rs.getInt("uid"));
                 user.setUsername(rs.getString("username"));
                 user.setDisplayname(rs.getString("displayname"));
-                
+
                 Lecturer lec = new Lecturer();
                 lec.setId(rs.getInt("lid"));
                 lec.setName(rs.getString("lname"));
@@ -139,6 +172,16 @@ public class UserDBContext extends DBContext<User> {
             }
         }
         return user;
+    }
+
+    @Override
+    public ArrayList<User> all() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public User get(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
