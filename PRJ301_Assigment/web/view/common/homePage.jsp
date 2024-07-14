@@ -28,8 +28,6 @@
             </c:if>
 
             <br/>
-            <a href="${pageContext.request.contextPath}/view/profile">View Information</a>
-            <br/>
             <a href="${pageContext.request.contextPath}/changepass">Change Password</a>
             <br/>
         </td>

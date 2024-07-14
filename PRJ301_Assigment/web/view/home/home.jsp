@@ -28,7 +28,7 @@
             <c:if test="${sessionScope.user.student ne null && sessionScope.user.lecturer eq null}" >
                 FAP FPTU For Student
                 <br>
-                <a href="${pageContext.request.contextPath}/profile/student?cid=${sessionScope.user.student.id}">Profile</a><br>
+                <a href="${pageContext.request.contextPath}/profile/student?sid=${sessionScope.user.student.id}">Profile</a><br>
                 <a href="#">View List Course</a><br>
                 <a href="#">View Score</a><br> 
                 <a href="#">Blog</a><br>
