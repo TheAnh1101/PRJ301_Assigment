@@ -30,7 +30,7 @@
                 <br>
                 <a href="${pageContext.request.contextPath}/profile/student?sid=${sessionScope.user.student.id}">Profile</a><br>
                 <a href="#">View List Course</a><br>
-                <a href="${pageContext.request.contextPath}/exam/student">View Course</a><br> 
+                <a href="${pageContext.request.contextPath}/exam/student">View Grade</a><br> 
                 <a href="#">Blog</a><br>
                 
             </c:if>    

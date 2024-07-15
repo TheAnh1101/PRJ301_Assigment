@@ -22,7 +22,7 @@ public class UserDBContext extends DBContext<User> {
         PreparedStatement stm = null;
         User user = null;
         try {
-            String sql = "SELECT u.[uid], u.username, u.[password], u.displayname, l.lid,l.lname, l.email, l.dob, l.gender FROM [User] u\n"
+            String sql = "SELECT u.[uid], u.username, u.[password], u.displayname, u.email, l.lid,l.lname, l.dob, l.gender FROM [User] u\n"
                     + "INNER JOIN user_lecturer ul ON ul.[uid] = u.[uid] AND ul.active = 1\n"
                     + "INNER JOIN lecturer l ON ul.lid = l.lid\n"
                     + "WHERE U.username = ? AND U.[password] = ?";
@@ -34,13 +34,13 @@ public class UserDBContext extends DBContext<User> {
                 user = new User();
                 user.setId(rs.getInt("uid"));
                 user.setDisplayname(rs.getString("displayname"));
+                user.setEmail(rs.getString("email"));
                 int lid = rs.getInt("lid");
                 if (lid != 0) {
                     Lecturer lecturer = new Lecturer();
                     lecturer.setId(lid);
                     lecturer.setName(rs.getString("lname"));
                     lecturer.setGender(rs.getBoolean("gender"));
-                    lecturer.setEmail(rs.getString("email"));
                     lecturer.setDob(rs.getDate("dob"));
                     user.setLecturer(lecturer);
                 }
@@ -62,7 +62,7 @@ public class UserDBContext extends DBContext<User> {
         PreparedStatement stm = null;
         User user = null;
         try {
-            String sql = "SELECT u.[uid], u.username, u.[password], u.displayname, s.[sid],s.sname, s.email, s.dob, s.gender FROM [User] u\n"
+            String sql = "SELECT u.[uid], u.username, u.[password], u.displayname,u.email, s.[sid],s.sname, s.dob, s.gender FROM [User] u\n"
                     + "INNER JOIN user_students us ON us.[uid] = u.[uid] AND us.active = 1\n"
                     + "INNER JOIN students s ON us.[sid] = s.[sid]\n"
                     + "WHERE U.username = ? AND U.[password] = ?";
@@ -74,13 +74,13 @@ public class UserDBContext extends DBContext<User> {
                 user = new User();
                 user.setId(rs.getInt("uid"));
                 user.setDisplayname(rs.getString("displayname"));
+                user.setEmail(rs.getString("email"));
                 int sid = rs.getInt("sid");
                 if (sid != 0) {
                     Student student = new Student();
                     student.setId(sid);
                     student.setName(rs.getString("sname"));
                     student.setGender(rs.getBoolean("gender"));
-                    student.setEmail(rs.getString("email"));
                     student.setDob(rs.getDate("dob"));
                     user.setStudent(student);
                 }
@@ -102,7 +102,7 @@ public class UserDBContext extends DBContext<User> {
         PreparedStatement stm = null;
         User user = null;
         try {
-            String sql = "SELECT u.uid,u.username,u.displayname,s.sid,s.sname,s.email,s.dob,s.gender FROM [User] u \n"
+            String sql = "SELECT u.uid,u.username,u.displayname,s.sid,s.sname,u.email,s.dob,s.gender FROM [User] u \n"
                     + "INNER JOIN user_students us ON u.uid = us.uid\n"
                     + "INNER JOIN students s ON s.sid = us.sid \n"
                     + "WHERE s.sid = ?";
@@ -114,11 +114,11 @@ public class UserDBContext extends DBContext<User> {
                 user.setId(rs.getInt("uid"));
                 user.setUsername(rs.getString("username"));
                 user.setDisplayname(rs.getString("displayname"));
+                user.setEmail(rs.getString("email"));
 
                 Student stu = new Student();
                 stu.setId(rs.getInt("sid"));
                 stu.setName(rs.getString("sname"));
-                stu.setEmail(rs.getString("email"));
                 stu.setDob(rs.getDate("dob"));
                 stu.setGender(rs.getBoolean("gender"));
                 user.setStudent(stu);
@@ -140,7 +140,7 @@ public class UserDBContext extends DBContext<User> {
         PreparedStatement stm = null;
         User user = null;
         try {
-            String sql = "SELECT u.uid,u.username,u.displayname,l.lid,l.lname,l.email,l.dob,l.gender FROM [User] u \n"
+            String sql = "SELECT u.uid,u.username,u.displayname,l.lid,l.lname,u.email,l.dob,l.gender FROM [User] u \n"
                     + "INNER JOIN user_lecturer ul ON u.uid = ul.uid\n"
                     + "INNER JOIN lecturer l ON l.lid = ul.lid \n"
                     + "WHERE l.lid = ?";
@@ -152,11 +152,11 @@ public class UserDBContext extends DBContext<User> {
                 user.setId(rs.getInt("uid"));
                 user.setUsername(rs.getString("username"));
                 user.setDisplayname(rs.getString("displayname"));
-
+                user.setEmail(rs.getString("email"));
+                
                 Lecturer lec = new Lecturer();
                 lec.setId(rs.getInt("lid"));
                 lec.setName(rs.getString("lname"));
-                lec.setEmail(rs.getString("email"));
                 lec.setDob(rs.getDate("dob"));
                 lec.setGender(rs.getBoolean("gender"));
                 user.setLecturer(lec);

@@ -18,7 +18,7 @@
             ${param.lid}
             ID: ${requestScope.user.id}<br>
             Name: ${requestScope.user.lecturer.name}<br>
-            Email: ${requestScope.user.lecturer.email}<br>
+            Email: ${requestScope.user.email}<br>
             Gender: ${requestScope.user.lecturer.gender?"Male":"Female"}<br>
             DOB: ${requestScope.user.lecturer.dob}<br>
         </c:if>
