@@ -31,7 +31,7 @@
                     <c:forEach items="${requestScope.exams}" var="e">
                         <td>
                             <input type="hidden" name="gradeid" value="${s.id}_${e.id}" />
-                            <input type="text" name="grade${s.id}_${e.id}" 
+                            <input type="number" name="grade${s.id}_${e.id}" min="0" max="10" 
                                    
                                    <c:forEach items="${requestScope.grades}" var="g">
                                        <c:if test="${g.exam.id eq e.id and g.student.id eq s.id}">

@@ -14,7 +14,7 @@
     </head>
     <body>
         <h2 style="color:red">An unexpected error has been occurred! </h2><br/>
-
+        <%= exception %>  
         <br>
         <h2>Please back to <a href="${pageContext.request.contextPath}/home/feature"> Home Page</a></h2>
     </body>
