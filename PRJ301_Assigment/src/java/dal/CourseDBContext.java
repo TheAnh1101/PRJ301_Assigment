@@ -88,8 +88,7 @@ public class CourseDBContext extends DBContext<Course> {
                 Lecturer l = new Lecturer();
                 l.setId(rs.getInt("lid"));
                 c.setLecturer(l);
-                
-                
+
                 Subject sub = new Subject();
                 sub.setId(rs.getInt("subid"));
                 sub.setName(rs.getString("subname"));
@@ -118,14 +117,99 @@ public class CourseDBContext extends DBContext<Course> {
 
     @Override
     public ArrayList<Course> all() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        PreparedStatement stm = null;
+        ArrayList<Course> courses = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Courses";
+            stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {
+                Lecturer l = new Lecturer();
+                l.setId(rs.getInt("lid"));
+
+                Semester s = new Semester();
+                s.setId(rs.getInt("semid"));
+
+                Subject su = new Subject();
+                su.setId(rs.getInt("subid"));
+
+                Course course = new Course();
+                course.setId(rs.getInt("cid"));
+                course.setName(rs.getString("cname"));
+                course.setLecturer(l);
+                course.setSemester(s);
+                course.setSubject(su);
+
+                courses.add(course);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (stm != null) {
+                    stm.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return courses;
+
     }
 
     @Override
-    public Course get(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    public Course get(int cid) {
+        PreparedStatement stm = null;
+        Course course = null;
+        try {
+            String sql = "SELECT c.cid, c.cname, l.lid, l.lname,se.semid, se.season,se.[year],sub.subid,sub.subname  FROM courses c \n"
+                    + "INNER JOIN lecturer l ON c.lid =l.lid\n"
+                    + "INNER JOIN semester se ON se.semid = c.semid\n"
+                    + "INNER JOIN subjects sub ON sub.subid = c.subid\n"
+                    + "WHERE c.cid = ?";
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, cid);
+            ResultSet rs = stm.executeQuery();
+            
+            while (rs.next()) {                
+                Lecturer l = new Lecturer();
+                l.setId(rs.getInt("lid"));
+                l.setName(rs.getString("lname"));
 
+                Semester sem = new Semester();
+                sem.setId(rs.getInt("semid"));
+                sem.setSeason(rs.getString("season"));
+                sem.setYear(rs.getString("year"));
+
+                Subject sub = new Subject();
+                sub.setId(rs.getInt("subid"));
+                sub.setName(rs.getString("subname"));
+
+                course = new Course();
+                course.setId(rs.getInt("cid"));
+                course.setName(rs.getString("cname"));
+                course.setLecturer(l);
+                course.setSemester(sem);
+                course.setSubject(sub);
+            }
+            
+        }catch (SQLException ex) {
+            Logger.getLogger(CourseDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                stm.close();
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CourseDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return course;
+    }
     @Override
     public void insert(Course model) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
