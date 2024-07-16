@@ -10,6 +10,27 @@ package model;
  */
 public class Semester {
     private int id;
+    private String season;
+    private String year;
+
+    public String getSeason() {
+        return season;
+    }
+
+    public void setSeason(String season) {
+        this.season = season;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+   
+    
 
     public int getId() {
         return id;
