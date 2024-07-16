@@ -9,6 +9,10 @@ import model.Student;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Course;
+import model.Lecturer;
+import model.Semester;
+import model.Subject;
 
 /**
  *
@@ -27,22 +31,73 @@ public class StudentDBContext extends DBContext<Student> {
 
             stm = connection.prepareStatement(sql);
             stm.setInt(1, cid);
-            
+
             ResultSet rs = stm.executeQuery();
-            while(rs.next())
-            {
+            while (rs.next()) {
                 Student s = new Student();
                 s.setId(rs.getInt("sid"));
                 s.setName(rs.getString("sname"));
                 students.add(s);
             }
-            
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                stm.close();
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        finally
-        {
+        return students;
+    }
+
+    public ArrayList<Student> getStudentByCid(int cid) {
+        PreparedStatement stm = null;
+        ArrayList<Student> students = new ArrayList<>();
+        try {
+            String sql = "SELECT s.sid, s.sname,s.gender, c.cid, c.cname, l.lid, l.lname,se.semid, se.season,se.[year],sub.subid,sub.subname FROM students s\n"
+                    + "INNER JOIN students_courses sc ON s.sid = sc.sid\n"
+                    + "INNER JOIN courses c ON sc.cid = c.cid\n"
+                    + "INNER JOIN lecturer l ON c.lid =l.lid\n"
+                    + "INNER JOIN semester se ON se.semid = c.semid\n"
+                    + "INNER JOIN subjects sub ON sub.subid = c.subid\n"
+                    + "WHERE c.cid = ?";
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, cid);
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {
+                Student s = new Student();
+                s.setId(rs.getInt("sid"));
+                s.setName(rs.getString("sname"));
+                s.setGender(rs.getBoolean("gender"));
+
+//                Lecturer l = new Lecturer();
+//                l.setId(rs.getInt("lid"));
+//                l.setName(rs.getString("lname"));
+//
+//                Semester sem = new Semester();
+//                sem.setId(rs.getInt("semid"));
+//                sem.setSeason(rs.getString("season"));
+//                sem.setYear(rs.getString("year"));
+//
+//                Subject sub = new Subject();
+//                sub.setId(rs.getInt("subid"));
+//                sub.setName(rs.getString("subname"));
+//
+//                Course c = new Course();
+//                c.setId(rs.getInt("cid"));
+//                c.setName(rs.getString("cname"));
+//                c.setLecturer(l);
+//                c.setSemester(sem);
+//                c.setSubject(sub);
+                students.add(s);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
             try {
                 stm.close();
                 connection.close();
