@@ -29,7 +29,7 @@
                 FAP FPTU For Student
                 <br>
                 <a href="${pageContext.request.contextPath}/profile/student?sid=${sessionScope.user.student.id}">Profile</a><br>
-                <a href="#">View List Course</a><br>
+                <a href="${pageContext.request.contextPath}/course/list">View List Course</a><br>
                 <a href="${pageContext.request.contextPath}/exam/student">View Grade</a><br> 
                 <a href="#">Blog</a><br>
                 

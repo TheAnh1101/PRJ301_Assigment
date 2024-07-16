@@ -28,7 +28,7 @@
             </c:if>
 
             <br/>
-            <a href="${pageContext.request.contextPath}/changepass">Change Password</a>
+            <a href="${pageContext.request.contextPath}/password/verify">Change Password</a>
             <br/>
         </td>
     </tr>
