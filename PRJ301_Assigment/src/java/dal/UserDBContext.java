@@ -153,7 +153,7 @@ public class UserDBContext extends DBContext<User> {
                 user.setUsername(rs.getString("username"));
                 user.setDisplayname(rs.getString("displayname"));
                 user.setEmail(rs.getString("email"));
-                
+
                 Lecturer lec = new Lecturer();
                 lec.setId(rs.getInt("lid"));
                 lec.setName(rs.getString("lname"));
@@ -172,6 +172,50 @@ public class UserDBContext extends DBContext<User> {
             }
         }
         return user;
+    }
+
+    public User checkUsersForChangePass(String email) {
+        PreparedStatement stm = null;
+        User user = null;
+        try {
+            String sql = "Select * from [User] Where email = ?";
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, email);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                user = new User();
+                user.setId(rs.getInt("uid"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setDisplayname(rs.getString("displayname"));
+                user.setEmail(rs.getString("email"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                stm.close();
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return user;
+    }
+
+    public void changePassword(User model) {
+        PreparedStatement stm = null;
+        try {
+            String sql_update ="UPDATE [User]\n"
+                    + "   SET [password] = ?\n"
+                    + " WHERE [uid] = ?";
+            stm = connection.prepareStatement(sql_update);
+            stm.setString(1, model.getPassword());
+            stm.setInt(2, model.getId());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Error: " +ex.getMessage());
+        }
     }
 
     @Override
