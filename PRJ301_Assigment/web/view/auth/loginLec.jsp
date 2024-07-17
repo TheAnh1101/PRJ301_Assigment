@@ -15,7 +15,7 @@
         <form action="lecturer" method="POST">
             <h1>LOGIN FOR LECTURER</h1>
             Username: <input type="text" name="username"/><br> 
-            Password: <input type="text" name="password"/><br>
+            Password: <input type="password" name="password"/><br>
             <p class="text-center mt-3" style="color: red">${error}</p>
             <input type="submit" value="Login"/>
         </form>
