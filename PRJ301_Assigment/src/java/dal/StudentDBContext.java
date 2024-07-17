@@ -114,8 +114,35 @@ public class StudentDBContext extends DBContext<Student> {
     }
 
     @Override
-    public Student get(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Student get(int sid) {
+        PreparedStatement stm = null;
+        Student s = null;
+        try {
+            String sql = "SELECT s.sid,s.sname, c.cid, c.cname FROM students s \n"
+                    + "INNER JOIN students_courses sc ON sc.sid = s.sid\n"
+                    + "INNER JOIN courses c ON c.cid = sc.cid\n"
+                    + "WHERE s.sid = ?";
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, sid);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                s = new Student();
+                s.setId(rs.getInt("sid"));
+                s.setName(rs.getString("sname"));
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                stm.close();
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return s;
+    
     }
 
     @Override

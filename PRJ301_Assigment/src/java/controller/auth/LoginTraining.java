@@ -4,21 +4,44 @@
  */
 package controller.auth;
 
-import dal.UserDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.User;
-import util.brcypt.BCrypt;
 
 /**
  *
  * @author AD
  */
-public class LoginStudentController extends HttpServlet {
+public class LoginTraining extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet LoginTraining</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet LoginTraining at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -32,7 +55,7 @@ public class LoginStudentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("../view/auth/loginStu.jsp").forward(request, response);
+        request.getRequestDispatcher("../view/auth/loginTrain.jsp").forward(request, response);
     }
 
     /**
@@ -48,24 +71,15 @@ public class LoginStudentController extends HttpServlet {
             throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-
-        UserDBContext db = new UserDBContext();
-        User user = db.getUserByUsernamePasswordStudent(username, password);
-//        String hashPass = user.getPassword();
         
-        
-
-        if (user != null) {
-//            if (BCrypt.checkpw(password, hashPass)) {
-//                
-//            }
-            request.getSession().setAttribute("user", user);
-            //            request.getRequestDispatcher("../view/home/homeStu.jsp").forward(request, response);
-            response.sendRedirect("../home/feature");
+        if (username == "admin" && password == "123") {
+//            request.getSession().setAttribute("user", user);
+//            request.getRequestDispatcher("../view/home/homeLec.jsp").forward(request, response);
+            response.sendRedirect("../home/training");
         } else {
             String error = "Login failed! Please try again";
             request.setAttribute("error", error);
-            request.getRequestDispatcher("../view/auth/loginStu.jsp").forward(request, response);
+            request.getRequestDispatcher("../view/auth/loginLec.jsp").forward(request, response);
         }
     }
 

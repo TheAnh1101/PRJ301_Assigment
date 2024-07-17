@@ -5,36 +5,46 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Home Page</title>
+        <style>
+            .feature-links {
+                text-align: center;
+                margin-top: 50px;
+            }
+            .feature-links a {
+                display: block;
+                margin: 10px 0;
+                text-decoration: none;
+                color: #007bff;
+                font-weight: bold;
+            }
+            .feature-links a:hover {
+                text-decoration: underline;
+            }
+        </style>
     </head>
     <body>
         <jsp:include page="../common/homePage.jsp"></jsp:include>
-            <br> 
-            <table border = 1px>
+        <div class="feature-links">
             <c:if test="${sessionScope.user.lecturer ne null && sessionScope.user.student eq null}">
-                FAP FPTU For Lecturer
-                <br>
+                <h2>FAP FPTU For Lecturer</h2>
                 <input type="hidden" name="lid" value="${param.lid}"/>
-                <a href="${pageContext.request.contextPath}/exam/lecturer">View Course</a><br>
-                <a href="${pageContext.request.contextPath}/profile/lecturer?lid=${sessionScope.user.lecturer.id}">Profile</a><br>
+                <a href="${pageContext.request.contextPath}/exam/lecturer">View Course</a>
+                <a href="${pageContext.request.contextPath}/profile/lecturer?lid=${sessionScope.user.lecturer.id}">Profile</a>
                 <a href="#">Blog</a>
             </c:if>
-            <c:if test="${sessionScope.user.student ne null && sessionScope.user.lecturer eq null}" >
-                FAP FPTU For Student
-                <br>
-                <a href="${pageContext.request.contextPath}/profile/student?sid=${sessionScope.user.student.id}">Profile</a><br>
-                <a href="${pageContext.request.contextPath}/course/list">View List Course</a><br>
-                <a href="${pageContext.request.contextPath}/exam/student">View Grade</a><br> 
-                <a href="#">Blog</a><br>
-                
-            </c:if>    
-        </table>
-
+            <c:if test="${sessionScope.user.student ne null && sessionScope.user.lecturer eq null}">
+                <h2>FAP FPTU For Student</h2>
+                <a href="${pageContext.request.contextPath}/profile/student?sid=${sessionScope.user.student.id}">Profile</a>
+                <a href="${pageContext.request.contextPath}/course/list">View List Course</a>
+                <a href="${pageContext.request.contextPath}/exam/student">View Grade</a>
+                <a href="#">Blog</a>
+            </c:if>
+        </div>
     </body>
 </html>

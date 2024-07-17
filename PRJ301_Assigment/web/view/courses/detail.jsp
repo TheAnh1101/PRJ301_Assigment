@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>View Score Student</title>
+        <title>View Detail Courses</title>
  <style>
             /* CSS for ViewScoreStudent page */
             body {
@@ -97,7 +97,6 @@
         </script>
     </head>
     <body>
-        <a href=""><input type="button" value="Home"/></a>
         <a href="list"><input type="button" value="List Course"/></a>
             <%int i = 1;%>
         <br/>
@@ -133,10 +132,11 @@
                     <th>STUDENT CODE</th>
                     <th>STUDENT NAME</th>
                     <th>SEX</th>
+                    <th>ACTION</th>
 
                 </tr>
                 <c:forEach items="${requestScope.students}" var="s">
-                    <tr onclick="goToStudentDetail('${s.id}')">
+                    <tr>
                         <td><%= i %>
                             <% i++; %></td>
                         <td>
@@ -144,6 +144,7 @@
                         </td>
                         <td>${s.name}</td>
                         <td>${s.gender?"Male":"Female"}</td>
+                        <td><a href="${pageContext.request.contextPath}/course/request?sid=${s.id}&cid=${course.id}">Swap Course</a></td>
 
                     </tr>
                 </c:forEach>

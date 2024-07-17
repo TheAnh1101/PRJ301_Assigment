@@ -206,15 +206,63 @@ public class UserDBContext extends DBContext<User> {
     public void changePassword(User model) {
         PreparedStatement stm = null;
         try {
-            String sql_update ="UPDATE [User]\n"
-                    + "   SET [password] = ?\n"
-                    + " WHERE [uid] = ?";
+            String sql_update = "UPDATE [User]\n"
+                    + "   SET [username] = ?\n"
+                    + "      ,[password] = ?\n"
+                    + "      ,[displayname] = ?\n"
+                    + "      ,[uid] = ?\n"
+                    + "      ,[email] = ?\n"
+                    + " WHERE [uid] =?";
             stm = connection.prepareStatement(sql_update);
-            stm.setString(1, model.getPassword());
-            stm.setInt(2, model.getId());
+            stm.setString(1, model.getUsername());
+            stm.setString(2, model.getPassword());
+            stm.setString(3, model.getDisplayname());
+            stm.setInt(4, model.getId());
+            stm.setString(5, model.getEmail());
+            stm.setInt(6, model.getId());
             stm.executeUpdate();
         } catch (SQLException ex) {
-            System.out.println("Error: " +ex.getMessage());
+            System.out.println("Error: " + ex.getMessage());
+        }
+    }
+
+    public void insertAccount(User acc) {
+        PreparedStatement stm = null;
+        try {
+            String sql = "INSERT INTO [User]\n"
+                    + "           ([username]\n"
+                    + "           ,[password]\n"
+                    + "           ,[displayname]\n"
+                    + "           ,[uid]\n"
+                    + "           ,[email])\n"
+                    + "     VALUES\n"
+                    + "           (?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?)";
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, acc.getUsername());
+            stm.setString(2, acc.getPassword());
+            stm.setString(3, acc.getDisplayname());
+            stm.setInt(4, acc.getId());
+            stm.setString(5, acc.getEmail());
+            stm.executeUpdate();
+
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (stm != null) {
+                    stm.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, "Failed to close resources", ex);
+            }
         }
     }
 

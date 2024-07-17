@@ -13,12 +13,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.User;
+import util.brcypt.BCrypt;
 
 /**
  *
  * @author AD
  */
-public class LoginTrainingController extends HttpServlet {
+public class CreateAccountController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -35,10 +36,10 @@ public class LoginTrainingController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginTrainingController</title>");  
+            out.println("<title>Servlet CreateAccountController</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginTrainingController at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet CreateAccountController at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -55,7 +56,7 @@ public class LoginTrainingController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("../view/auth/loginTrain.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/home/training.jsp").forward(request, response);
     } 
 
     /** 
@@ -68,19 +69,33 @@ public class LoginTrainingController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        int uid = Integer.parseInt(request.getParameter("uid"));
+        String displayname = request.getParameter("displayname");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-
+        String email = request.getParameter("email");
         
-        if (username == "nguyenvana" && password == "123") {
-            request.getSession().setAttribute("user", user);
-//            request.getRequestDispatcher("../view/home/homeLec.jsp").forward(request, response);
-            response.sendRedirect("../home/feature");
-        } else {
-            String error = "Login failed! Please try again";
-            request.setAttribute("error", error);
-            request.getRequestDispatcher("../view/auth/loginLec.jsp").forward(request, response);
+        User u = new User();
+        u.setId(uid);
+        u.setDisplayname(displayname);
+        u.setEmail(email);
+        u.setUsername(username);
+        u.setPassword(password);
+        BCrypt bcrypt = new BCrypt();
+        u.setPassword(bcrypt.hashpw(password, bcrypt.gensalt()));
+        
+        UserDBContext db = new UserDBContext();
+        try {
+            db.insertAccount(u);
+            request.setAttribute("mess", "Create Account successfully");
+            request.getRequestDispatcher("view/home/training.jsp").forward(request, response);
+
+        } catch (Exception e) {
+            String mess = "Have error";
+            request.setAttribute("mess", mess);
+            request.getRequestDispatcher("view/home/training.jsp").forward(request, response);
         }
+
     }
 
     /** 

@@ -53,10 +53,6 @@
         <servlet-class>controller.password.VerifyEmailController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>LoginTrainingController</servlet-name>
-        <servlet-class>controller.auth.LoginTrainingController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ChangedPasswordController</servlet-name>
         <servlet-class>controller.password.ChangedPasswordController</servlet-class>
     </servlet>
@@ -67,6 +63,26 @@
     <servlet>
         <servlet-name>ViewDetailCourseController</servlet-name>
         <servlet-class>controller.view.ViewDetailCourseController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SendRequestSwapController</servlet-name>
+        <servlet-class>controller.request.SendRequestSwapController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListRequestOfSenderController</servlet-name>
+        <servlet-class>controller.request.ListRequestOfSenderController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateAccountController</servlet-name>
+        <servlet-class>controller.auth.CreateAccountController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginTrainingController</servlet-name>
+        <servlet-class>controller.auth.LoginTraining</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListFeaturerTraining</servlet-name>
+        <servlet-class>controller.training.ListFeaturerTraining</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginLecturerController</servlet-name>
@@ -121,10 +137,6 @@
         <url-pattern>/password/verify</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>LoginTrainingController</servlet-name>
-        <url-pattern>/login/training</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ChangedPasswordController</servlet-name>
         <url-pattern>/password/change</url-pattern>
     </servlet-mapping>
@@ -135,6 +147,26 @@
     <servlet-mapping>
         <servlet-name>ViewDetailCourseController</servlet-name>
         <url-pattern>/course/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendRequestSwapController</servlet-name>
+        <url-pattern>/course/request</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListRequestOfSenderController</servlet-name>
+        <url-pattern>/list/request</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateAccountController</servlet-name>
+        <url-pattern>/create</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginTrainingController</servlet-name>
+        <url-pattern>/login/training</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListFeaturerTraining</servlet-name>
+        <url-pattern>/home/training</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>1440</session-timeout>
